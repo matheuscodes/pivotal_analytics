@@ -1,0 +1,138 @@
+.labels{
+	font-size: 60%;
+	font-weight: bold;
+	color: #070;
+	text-align: center;
+}
+
+.owner{
+	font-size: 80%;
+	font-weight: bold;
+	color: #007;
+	text-align: center;
+	width:150;
+}
+
+.tickets{
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.tickets_title{
+	background: #e5e5e5;
+	text-align:center;
+	font-weight:bold;
+	font-size:80%;
+}
+
+.bugs{
+	fill: #D00;
+	stroke: #D00;
+}
+
+.features{
+	fill: #EE0;
+	stroke: #EE0;
+}
+
+.chores{
+	fill: #777;
+	stroke: #777;
+}
+
+.backlog{
+	fill: #AAA;
+	stroke: #AAA;
+}
+
+.icebox{
+	fill: #55F;
+	stroke: #55F;
+}
+
+.releases{
+	fill: #00A;
+	stroke: #00A;
+}
+
+.unscheduled{
+	background: #DDF;
+	fill: #55F;
+	stroke: #55F;
+}
+
+.unstarted{
+	background: #EEE;
+	fill: #AAA;
+	stroke: #AAA;
+}
+
+.started{
+	background: #FFD;
+	fill: #EF5;
+	stroke: #EF5;
+}
+
+.rejected{
+	background: #FFD;
+	fill: #900;
+	stroke: #900;
+}
+
+.accepted{
+	background: #DFD;
+	fill: #090;
+	stroke: #090;
+}
+
+
+.delivered{
+	background: #FFD;
+	fill: #EA0;
+	stroke: #EA0;
+}
+
+.finished{
+	background: #FFD;
+	fill: #009;
+	stroke: #009;
+}
+
+/** Required hacks **/
+.all{
+	fill:#ccc;
+	stroke:#ccc;
+}
+
+.iteration{
+	fill-opacity:0;
+}
+
+.fixed{
+	fill-opacity:0;
+}
+
+.created{
+	fill-opacity:0;
+}
+
+.completed{
+	fill-opacity:0;
+}
+
+.requested{
+	fill: #900;
+	stroke: #900;
+}
+
+.opened{
+	fill: #900;
+	stroke: #900;
+}
+
+.closed{
+	fill: #090;
+	stroke: #090;
+}
