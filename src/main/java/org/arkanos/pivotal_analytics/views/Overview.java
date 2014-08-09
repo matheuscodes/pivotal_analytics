@@ -45,7 +45,6 @@ import org.arkanos.pivotal_analytics.pivotal.Ticket;
 import org.arkanos.pivotal_analytics.pivotal.TicketSet;
 import org.arkanos.pivotal_analytics.printers.CommonHTML;
 import org.arkanos.pivotal_analytics.printers.SVGPrinter;
-import org.json.simple.JSONObject;
 
 /**
  * The {@code Overview} class serves Pivotal Analytics project overview page.
@@ -194,8 +193,10 @@ public class Overview extends HttpServlet {
 		
 		page.println(CommonHTML.wrapWindow("overview","Request Response Time in Days", SVGPrinter.labeledLineGraph(data, 0, max_points, labels, "        ",2),"    "));
 		
-		//FIXME When there are no Active tickets
-		long oldest = all.queryOldestActive().getCreated().getTime();
+		long oldest = System.currentTimeMillis();
+		if(all.queryOldestActive() != null){
+			oldest = all.queryOldestActive().getCreated().getTime();
+		}
 		int days = (int)((now-oldest)/(oneday))+1; 
 		int[] open = new int[days];
 		int[] closed = new int[days];
