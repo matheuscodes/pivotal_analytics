@@ -222,9 +222,12 @@ public class Overview extends HttpServlet {
 		page.println(CommonHTML.wrapWindow("overview","Backlog Daily Activity", SVGPrinter.labeledLineGraph(data, closed[0], open[open.length-1], labels, "        ",2),"    "));
 		
 		
-		int iteration_start = 1;
+		int iteration_start = project.getCurrentIteration()- 8;
 		try{
 			iteration_start = new Integer(CookieManager.matchCookie(cookies, "iteration_start").getValue()).intValue();
+			if(project.getCurrentIteration() - iteration_start > 8){
+				iteration_start = project.getCurrentIteration() - 8;
+			}
 		}
 		catch (NumberFormatException e){
 			System.err.println("[WARNING] Parsing exception on iteration. Using default 1.");
