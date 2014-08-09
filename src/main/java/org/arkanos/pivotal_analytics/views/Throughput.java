@@ -69,8 +69,6 @@ public class Throughput extends HttpServlet {
 		
 		PrintWriter page = response.getWriter();
 		
-		
-		
 		int projectID = new Integer(CookieManager.matchCookie(cookies, "project_id").getValue()).intValue();
 		
 		/*Queries*/
@@ -88,10 +86,7 @@ public class Throughput extends HttpServlet {
 		
 		page.println("  <div class='content'>");
 		
-		
 		page.println("    <h1>Throughput Overview</h1>");
-		
-		
 		
 		/*Constants*/
 		int ACCEPTED = 0;
@@ -156,7 +151,6 @@ public class Throughput extends HttpServlet {
 
 			i += oneweek;
 		}
-		
 		
 		Map<String,int[]> data;
 		

@@ -40,17 +40,6 @@ public class DataSource {
 	static private HashMap<String,Project> loaded_projects;
 
 	/**
-	 * Will prepare the HashMap for creating projects.
-	 * Calling this method is mandatory in every servlet.
-	 * 
-	 * Deprecated because was embedded in {@link #readProject(int, String, String) this method}.
-	 */
-	@Deprecated
-	static public void prepare(){
-		
-	}
-	
-	/**
 	 * Reads the given project to the given user and stores it in memory.
 	 * In case the project is already stored, it will use that copy.
 	 * If it is not stored, the newest snapshot of the project will be loaded.

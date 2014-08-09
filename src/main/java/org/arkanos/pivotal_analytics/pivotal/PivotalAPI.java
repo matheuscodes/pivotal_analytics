@@ -51,11 +51,15 @@ import org.json.simple.parser.ParseException;
  */
 public class PivotalAPI {
 	
-	/**URL used for connecting to Pivotal Tracker API**/
+	/** URL used for connecting to Pivotal Tracker API **/
 	public static String API_LOCATION_URL = "https://www.pivotaltracker.com/services/v5";
-	//TODO: doc
+	/** User token to be used in API calls **/
 	String token = null;
-	//TODO: doc
+	/**
+	 * Creates an API instance for communication with Pivotal.
+	 * 
+	 * @param token specifies the user token to use.
+	 */
 	public PivotalAPI(String token){
 		this.token = token;
 	}
@@ -64,9 +68,7 @@ public class PivotalAPI {
 	 * Downloads the stories for a given project.
 	 * 
 	 * @param projectID specifies Pivotal ID reference to the Project.
-	 * @param token specifies User API Token from Pivotal.
-	 * @param offset defines the number of stories to be ignored from the oldest accepted.
-	 * @return an XML Document provided by the API.
+	 * @return a vector with a JSON String in an array per iteration.
 	 */
 	public Vector<String> downloadProjectContent(int projectID){
 		Vector<String> pages = new Vector<String>();
@@ -149,8 +151,7 @@ public class PivotalAPI {
 	 * Downloads the basic data for a given project.
 	 * 
 	 * @param projectID specifies Pivotal ID reference to the Project.
-	 * @param token specifies User API Token from Pivotal.
-	 * @return an XML Document provided by the API.
+	 * @return a JSON string with project information.
 	 */
 	public String downloadProject(int projectID){
 		String result = null;
@@ -190,6 +191,12 @@ public class PivotalAPI {
         return result;
 	}
 
+	/**
+	 * Downloads the list of members inside a project.
+	 * 
+	 * @param projectID specifies Pivotal ID reference to the Project.
+	 * @return a JSON string with an array of user information.
+	 */
 	public String downloadUsers(int projectID) {
 		String result = null;
 		CloseableHttpClient httpclient = HttpClientBuilder.create().build();

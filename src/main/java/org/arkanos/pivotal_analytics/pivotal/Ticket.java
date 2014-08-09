@@ -67,7 +67,8 @@ public class Ticket {
 	/**
 	 * Constructs the Ticket based on an XML node given by the API.
 	 * 
-	 * @param xmlnode defines the particular node for the desired Ticket.
+	 * @param jo specifies the ticket information in a JSON object.
+	 * @param users provides a user lookup table for reading names from IDs.
 	 */
 	public Ticket(JSONObject jo,UserLookup users){
 		try{
@@ -211,10 +212,20 @@ public class Ticket {
 		return ID;
 	}
 	
+	/**
+	 * @see Object#toString()
+	 */
 	public String toString(){
 		return this.ID + " - "+ this.title;
 	}
 
+	/**
+	 * Inserts missing label required for organizing iterations.
+	 * The label is only added for features.
+	 * To trace plans overlapping precisely, please maintain labels manually.
+	 * 
+	 * @param i defines the iteration the ticket should belong to.
+	 */
 	public void addMissingIterationLabel(int i) {
 		if(this.StoryType.compareTo("feature") == 0){
 			if(this.labels != null && !this.labels.contains("["+i+"]")){

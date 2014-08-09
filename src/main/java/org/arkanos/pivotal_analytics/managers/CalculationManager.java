@@ -33,6 +33,7 @@ public class CalculationManager {
 	 * Calculates the <i>velocity</i> based on a given set of integers.
 	 * <i>Velocity</i> is defined by the average amount from the last three samples.
 	 * No <i>velocity</i> is calculated for first three samples, using only base data.
+	 * 
 	 * @param base array with the delivered count
 	 * @return array of the same size as the base, with calculated velocity.
 	 */

@@ -33,11 +33,8 @@ import java.util.Map;
  * @author Matheus Borges Teixeira
  */
 public class SVGPrinter {
-
 	/** Set of colors to use for classes not overwritten via CSS **/
 	static String[] colors = {"#FF0000","#00FF00","#0000FF","#FFFF00","#00FFFF","#FF00FF","#CCCCCC","#8000FF","#FF8000","#00FF80","#808000","#008080","#800080","#777777","#804040","#408040","#404080","#000000"};
-	
-	
 	/** Space in pixels for labels in the Y axis for line graphs**/
 	static int LEFT_GAP = 30;
 	/** Space in pixels for labels in the X axis for line graphs **/

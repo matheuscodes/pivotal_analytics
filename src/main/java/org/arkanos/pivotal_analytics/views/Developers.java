@@ -77,14 +77,10 @@ public class Developers extends HttpServlet {
 		
 		PrintWriter page = response.getWriter();
 		
-		
-		
-		
 		int projectID = new Integer(CookieManager.matchCookie(cookies, "project_id").getValue()).intValue();
 		
 		Project thisone = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue(),CookieManager.matchCookie(cookies, "offset").getValue());
 		TicketSet active = thisone.getStories().queryActive();
-		
 		
 		page.println("<html>");
 		page.println(CommonHTML.getBasicHeaders("Pivotal Analytics - "+thisone.getDisplayName()+" - Developers"));
@@ -106,7 +102,6 @@ public class Developers extends HttpServlet {
 			page.println("    </center>");
 			
 			printDeveloper(request.getParameter("dev"),page,active,cookies,thisone);
-			
 		}
 		else{
 			/** There is no developer selected, so print the task load **/

@@ -51,10 +51,15 @@ import org.arkanos.pivotal_analytics.printers.SVGPrinter;
 public class Starvation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	/** Filter for stories starving for less than a week **/
 	private static final int LESS_ONE_WEEK = 0;
+	/** Filter for stories starving for 2 to 3 weeks **/
 	private static final int TWO_TO_THREE_WEEKS = 1;
+	/** Filter for stories starving for 3 to 4 weeks **/
 	private static final int THREE_TO_FOUR_WEEKS = 2;
+	/** Filter for stories starving for 1 to 2 months **/
 	private static final int ONE_TO_TWO_MONTHS = 3;
+	/** Filter for stories starving for more than two months **/
 	private static final int MORE_TWO_MONTHS = 4;
 		
     /**

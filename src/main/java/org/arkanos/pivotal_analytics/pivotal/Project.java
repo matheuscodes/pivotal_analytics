@@ -29,7 +29,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
 /**
  * The {@code Project} class models a Pivotal Tracker Project.
  * 
@@ -58,10 +57,10 @@ public class Project {
 	/** Name of the Company using the Project **/
 	String company;
 	
-	//TODO doc
+	/** User names lookup list **/
 	UserLookup users;
 	
-	//TODO doc
+	/** Map of stories per iteration according to Pivotal **/
 	HashMap<String,Long> iteration_map;
 	
 	/**
@@ -72,6 +71,7 @@ public class Project {
 	 * @param offset defines the number of stories to be ignored from the oldest accepted.
 	 */
 	public Project(int projectID, String token, String offset){
+		//TODO totally remove offset
 		PivotalAPI api = new PivotalAPI(token);
 		String downloaded = api.downloadProject(projectID);
 		JSONParser jp = new JSONParser();
@@ -176,7 +176,7 @@ public class Project {
 	 * @return the project title.
 	 */
 	public String getDisplayName() {
-		return company+", "+name;
+		return "Account: "+company+", "+name;
 	}
 
 	

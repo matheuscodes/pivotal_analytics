@@ -67,8 +67,6 @@ public class PlanningFollowup extends HttpServlet {
 			return;
 		}
 		
-		
-		
 		PrintWriter page = response.getWriter();
 		Project thisone = null;
 		int iteration_start = 1;
@@ -86,7 +84,6 @@ public class PlanningFollowup extends HttpServlet {
 			System.out.println("[WARNING] Parsing exception on iteration. Using default 1.");
 		}
 		
-		
 		page.println("<html>");
 		page.println(CommonHTML.getBasicHeaders("Pivotal Analytics - "+thisone.getDisplayName()+" - Planning Follow Up"));
 		page.println("<body>");
@@ -97,7 +94,6 @@ public class PlanningFollowup extends HttpServlet {
 		
 		
 		page.println("    <h1>Planning Follow Up</h1>");
-		
 		
 		long start = thisone.getStart().getTime() + (iteration_start-1)*thisone.getIterationSize();
 		

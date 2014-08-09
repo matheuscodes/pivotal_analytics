@@ -38,6 +38,7 @@ public class CookieManager {
 	
 	/**
 	 * Creates a simple Vector with all desired Cookies from a String-to-String Map.
+	 * 
 	 * @param contents specifies the cookies to be created.
 	 * @return all desired configured Cookies to be saved.
 	 */
@@ -54,7 +55,8 @@ public class CookieManager {
 	}
 	
 	/**
-	 * Counts and verifies that all required Cookies are in place. 
+	 * Counts and verifies that all required Cookies are in place.
+	 *  
 	 * @param cookies informs which cookies have been provided.
 	 * @return true if all required cookies are in place, false otherwise.
 	 */
@@ -87,6 +89,7 @@ public class CookieManager {
 	
 	/**
 	 * Searches for a particular Cookie in a given set.
+	 * 
 	 * @param set defines an array with all cookies.
 	 * @param name specifies the name of the cookie to be found.
 	 * @return null if the Cookie is not found, or the first match otherwise.
@@ -103,6 +106,7 @@ public class CookieManager {
 	 * Breaks one special Cookie into an array of Strings.
 	 * This Cookie must contain the labels separated by comma.
 	 * Usage of spaces should be avoided.
+	 * 
 	 * @param set specifies all given Cookies.
 	 * @return an array with all broken labels as individual Strings.
 	 */

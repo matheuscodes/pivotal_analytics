@@ -307,6 +307,9 @@ public class TicketSet extends Vector<Ticket> {
 		return result;
 	}
 	
+	/**
+	 * @see Object#toString()
+	 */
 	public String toString(){
 		String printed = "TicketSet: "+this.size()+"\n";
 		for(Object o: elementData){

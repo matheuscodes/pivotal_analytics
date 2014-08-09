@@ -50,7 +50,6 @@ public class All extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         PrintWriter page = response.getWriter();
 		Cookie[] cookies = request.getCookies();
 		
@@ -59,7 +58,6 @@ public class All extends HttpServlet {
 			return;
 		}
 		
-		
 		int projectID = new Integer(CookieManager.matchCookie(cookies, "project_id").getValue()).intValue();
 		Project project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue(),CookieManager.matchCookie(cookies, "offset").getValue()); 
 		TicketSet all = project.getStories();
@@ -67,7 +65,6 @@ public class All extends HttpServlet {
 		page.println("<html>");
 		page.println(CommonHTML.getBasicHeaders("Pivotal Analytics - "+project.getDisplayName()+" - All Stories"));
 		page.println("<body>");
-		
 		
 		page.println(CommonHTML.getMenu("  "));
 		page.println("  <div class='content' id='text'>");
