@@ -74,7 +74,7 @@ public class Ticket {
 	 * 
 	 * @param xmlnode defines the particular node for the desired Ticket.
 	 */
-	public Ticket(JSONObject jo){
+	public Ticket(JSONObject jo,UserLookup users){
 		try{
 			this.ID = ((Long)jo.get("id")).intValue();
 			this.StoryType = (String)jo.get("story_type");
@@ -88,7 +88,21 @@ public class Ticket {
 			this.currentState = (String)jo.get("current_state");
 			this.title = (String)jo.get("name");
 			this.requestedBy = (Long)jo.get("requested_by_id")+"";
-			this.ownedBy = (Long)jo.get("owned_by_id")+"";
+
+			this.ownedBy = null;
+			if(jo.get("owner_ids") != null){
+				JSONArray owners = (JSONArray)jo.get("owner_ids");
+				for(Object o: owners.toArray()){
+					if(this.ownedBy != null){
+						this.ownedBy += ",";
+						this.ownedBy += users.getUser(o.toString());
+					}
+					else{
+						this.ownedBy = users.getUser(o.toString());
+					}
+				}
+			}
+			
 			this.createdAt = DatatypeConverter.parseDateTime((String)jo.get("created_at")).getTime();
 			if(currentState.compareTo("accepted") == 0){
 				this.acceptedAt = DatatypeConverter.parseDateTime((String)jo.get("accepted_at")).getTime();
@@ -97,9 +111,15 @@ public class Ticket {
 				this.acceptedAt = null;
 			}
 			
-			this.labels = "";
+			this.labels = null;
 			for(Object l: ((JSONArray)jo.get("labels")).toArray()){
-				this.labels += ((JSONObject)l).get("name")+",";
+				if(this.labels != null){
+					this.labels += ","+((JSONObject)l).get("name");
+				}
+				else{
+					this.labels = ((JSONObject)l).get("name").toString();
+				}
+				
 			}
 		}
 		catch (MalformedURLException e){

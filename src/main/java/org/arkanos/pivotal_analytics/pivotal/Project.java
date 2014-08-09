@@ -59,6 +59,9 @@ public class Project {
 	/** Name of the Company using the Project **/
 	String company;
 	
+	//TODO doc
+	UserLookup users;
+	
 	/**
 	 * Downloads and constructs a given project.
 	 * 
@@ -83,6 +86,15 @@ public class Project {
 			
 			name = (String)jo.get("name");
 			company = (Long)jo.get("account_id")+"";
+			
+			downloaded = api.downloadUsers(projectID);
+			
+			JSONArray ja = (JSONArray) jp.parse(downloaded);
+			
+			users = new UserLookup();
+			for(Object pm: ja.toArray()){
+				users.addUser((JSONObject)(((JSONObject)pm).get("person")));
+			}
 			
 			loadStories(projectID,token,offset);		
 		} catch (ParseException e) {
@@ -114,7 +126,7 @@ public class Project {
 	
 				
 				for(int i = 0; i < list.size(); i++){
-					stories.add(new Ticket((JSONObject)list.get(i)));
+					stories.add(new Ticket((JSONObject)list.get(i),users));
 				}
 			}
 		} catch (org.json.simple.parser.ParseException e) {

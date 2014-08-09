@@ -176,4 +176,42 @@ public class PivotalAPI {
         System.out.println("----------------------------------------");
         return result;
 	}
+
+	public String downloadUsers(int projectID) {
+		String result = null;
+		CloseableHttpClient httpclient = HttpClientBuilder.create().build();
+
+        System.out.println("----------------------------------------");
+        try {
+        	HttpGet httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/memberships");
+            httpget.addHeader("X-TrackerToken", token);
+            System.out.println("Executing request for Project:\n" + httpget.getRequestLine());
+            HttpResponse response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+
+            System.out.println(response.getStatusLine());
+            if (entity != null) {
+                System.out.println("Response content length: " + entity.getContentLength());
+                result = "";
+                int r = 0;
+                byte[] b = new byte[2048];
+                do{
+                	r = entity.getContent().read(b);
+                	if(r > 0){
+                		result += new String(b,0,r);
+                	}
+                } while(r > 0);
+            }
+            /**Releasing System and Connection resources**/
+            httpclient.close();
+        } catch (ClientProtocolException e) {
+        	System.out.println("[ERROR:ClientProtocolException] Error while downloading file, see error logs for stack trace.");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("[ERROR:IOException] Error while saving the downloaded file, see error logs for stack trace.");
+			e.printStackTrace();
+		}
+        System.out.println("----------------------------------------");
+        return result;
+	}
 }
