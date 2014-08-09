@@ -102,7 +102,7 @@ public class Config extends HttpServlet {
 		}
 		page.println("      <input id='iteration_start' name='iteration_start' type='text' size='100%' /><br>");
 		
-		page.println("      <h3>Date for Developer Overview:</h3>(format must be yyyy/MM/dd hh:mm:ss)<br>");
+		page.println("      <h3>Date for Reference:</h3>(format must be yyyy/MM/dd hh:mm:ss)<br>");
 		if(CookieManager.matchCookie(cookies, "date_start") != null){
 			page.println("      Current value: "+CookieManager.matchCookie(cookies, "date_start").getValue()+"<br>");
 		}
