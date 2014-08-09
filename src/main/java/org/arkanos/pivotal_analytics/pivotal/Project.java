@@ -120,13 +120,13 @@ public class Project {
 		JSONArray list;
 		try {
 			stories = new TicketSet();
-			int iteration = 1;
+			int iteration = 0;
 			for(String d: downloaded){
 				list = (JSONArray)jp.parse(d);
 				for(int i = 0; i < list.size(); i++){
 					Ticket t = new Ticket((JSONObject)list.get(i),users);
 					stories.add(t);
-					t.addMissingIterationLabel(iteration);
+					if(iteration > 0) t.addMissingIterationLabel(iteration);
 				}
 				iteration++;
 			}

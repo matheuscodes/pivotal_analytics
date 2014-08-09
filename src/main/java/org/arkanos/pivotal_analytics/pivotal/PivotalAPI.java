@@ -67,13 +67,16 @@ public class PivotalAPI {
 	 * @return a vector with a JSON String in an array per iteration.
 	 */
 	public Vector<String> downloadProjectContent(int projectID){
-		Vector<String> pages = new Vector<String>();
+		Vector<String> pages_iterations = new Vector<String>();
+		Vector<String> pages_icebox = new Vector<String>();
 		int max = 1;
 		int current = 0;
 		int page = 100000;
 		CloseableHttpClient httpclient = HttpClientBuilder.create().build();
 		System.out.println("----------------------------------------");
         try {
+        	/** Downloading Scheduled via Iterations for data transfer optimization **/
+            System.out.println("-- Downloading iterations --");
         	HttpGet httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/iterations?limit=100000");
             httpget.addHeader("X-TrackerToken", token);
             System.out.println("Executing request for Project Content:\n" + httpget.getRequestLine());
@@ -100,7 +103,56 @@ public class PivotalAPI {
                 } while(r > 0);
                 
 
-                pages.add(result);
+                pages_iterations.add(result);
+
+                current += page;
+                if(current < max){
+                	httpclient.close();
+                	httpclient = HttpClientBuilder.create().build();
+	                httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/iterations?limit="+page+"&offset="+current);
+	                httpget.addHeader("X-TrackerToken", token);
+	                System.out.println("Executing request for Project Content:\n" + httpget.getRequestLine());
+	                response = httpclient.execute(httpget);
+	                entity = response.getEntity();
+	                System.out.println(response.getStatusLine());
+                }
+            }
+            httpclient.close();
+            
+            /** Downloading the icebox (unscheduled) **/
+            max = 1;
+    		current = 0;
+    		page = 100000;
+            httpclient = HttpClientBuilder.create().build();
+            
+            System.out.println("-- Downloading icebox --");
+            httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/stories?limit=100000&with_state=unscheduled");
+            httpget.addHeader("X-TrackerToken", token);
+            System.out.println("Executing request for Project Content:\n" + httpget.getRequestLine());
+            response = httpclient.execute(httpget);
+            entity = response.getEntity();
+            System.out.println(response.getStatusLine());
+            if(response.getFirstHeader("X-Tracker-Pagination-Total") != null){
+            	max = Integer.parseInt(response.getFirstHeader("X-Tracker-Pagination-Total").getValue());
+            }
+            if(response.getFirstHeader("X-Tracker-Pagination-Limit") != null){
+            	page = Integer.parseInt(response.getFirstHeader("X-Tracker-Pagination-Limit").getValue());
+            }
+            while (entity != null && current < max) {
+            	System.out.println("Response content length: " + entity.getContentLength());
+            	String result = "";
+                int r = 0;
+                byte[] b = new byte[10240];
+                do{
+                	
+                	r = entity.getContent().read(b);
+                	if(r > 0){
+                		result += new String(b,0,r);
+                	}
+                } while(r > 0);
+                
+
+                pages_icebox.add(result);
 
                 current += page;
                 if(current < max){
@@ -128,7 +180,18 @@ public class PivotalAPI {
         JSONParser jp = new JSONParser();
         Vector<String> iterations = new Vector<String>();
         try {
-	        for(String p: pages){
+        	if(pages_icebox.size() > 0){
+	        	String icebox = "[";
+	        	for(String p: pages_icebox){
+	        		icebox += p.substring(1, p.length()-1) + ",";
+	        	}
+	        	icebox = icebox.substring(0, icebox.length()-1)+"]";
+	        	iterations.add(icebox);
+        	}
+        	else{
+        		iterations.add("[]");
+        	}
+	        for(String p: pages_iterations){
 				JSONArray ja = (JSONArray)jp.parse(p);
 				for(Object i: ja.toArray()){
 					JSONArray stories = (JSONArray)((JSONObject)i).get("stories");
@@ -136,7 +199,7 @@ public class PivotalAPI {
 				}
 	        }
         } catch (ParseException e) {
-        	System.out.println("[ERROR:ParseException] There was a problem parsing the iterations.");
+        	System.out.println("[ERROR:ParseException] There was a problem parsing the iterations/icebox.");
 			e.printStackTrace();
 		}
         
