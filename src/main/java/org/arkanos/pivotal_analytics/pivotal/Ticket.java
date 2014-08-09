@@ -87,7 +87,7 @@ public class Ticket {
 			}
 			this.currentState = (String)jo.get("current_state");
 			this.title = (String)jo.get("name");
-			this.requestedBy = (Long)jo.get("requested_by_id")+"";
+			this.requestedBy = users.getUser(jo.get("requested_by_id").toString());
 
 			this.ownedBy = null;
 			if(jo.get("owner_ids") != null){
