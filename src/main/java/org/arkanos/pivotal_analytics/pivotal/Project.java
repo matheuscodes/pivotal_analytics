@@ -85,7 +85,7 @@ public class Project {
 			 
 			current_iteration = ((Long)jo.get("current_iteration_number")).intValue();
 			
-			int size = ((Long)jo.get("iteration_length")).intValue();
+			long size = ((Long)jo.get("iteration_length")).longValue();
 			iteration_size = size*7*24*60*60*1000;
 			
 			name = (String)jo.get("name");
@@ -125,13 +125,15 @@ public class Project {
 		JSONArray list;
 		try {
 			stories = new TicketSet();
+			int iteration = 1;
 			for(String d: downloaded){
 				list = (JSONArray)jp.parse(d);
-	
-				
 				for(int i = 0; i < list.size(); i++){
-					stories.add(new Ticket((JSONObject)list.get(i),users));
+					Ticket t = new Ticket((JSONObject)list.get(i),users);
+					stories.add(t);
+					t.addMissingIterationLabel(iteration);
 				}
+				iteration++;
 			}
 		} catch (org.json.simple.parser.ParseException e) {
 			// TODO Auto-generated catch block
