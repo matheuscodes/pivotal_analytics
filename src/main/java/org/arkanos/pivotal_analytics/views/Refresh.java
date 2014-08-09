@@ -1,5 +1,5 @@
 /**
- *  Copyright (C) 2013 Matheus Borges Teixeira
+ *  Copyright (C) 2014 Matheus Borges Teixeira
  *  
  *  This file is part of Pivotal Analytics, a web tool for statistical
  *  observation and measurement of Pivotal Projects.

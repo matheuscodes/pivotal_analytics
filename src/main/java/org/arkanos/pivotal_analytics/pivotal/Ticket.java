@@ -21,17 +21,12 @@ package org.arkanos.pivotal_analytics.pivotal;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.xml.bind.DatatypeConverter;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * The {@code Ticket} class models a Pivotal Tracker story.

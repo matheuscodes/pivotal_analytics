@@ -309,7 +309,6 @@ public class TicketSet extends Vector<Ticket> {
 	
 	public String toString(){
 		String printed = "TicketSet: "+this.size()+"\n";
-		int i = 0;
 		for(Object o: elementData){
 			if(o != null){
 				Ticket t = (Ticket)o;
