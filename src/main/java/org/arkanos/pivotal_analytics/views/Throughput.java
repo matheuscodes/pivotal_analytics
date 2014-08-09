@@ -101,7 +101,10 @@ public class Throughput extends HttpServlet {
 		long oneweek = 7*oneday;
 		
 		/** Single control of the start in the overview **/
-		long start = project.getStories().queryOldestAccepted().getCreated().getTime();
+		long start = 0;
+		if(project.getStories().queryOldestAccepted() != null){
+			start = project.getStories().queryOldestAccepted().getCreated().getTime();
+		}
 		long configured_time = 0;
 		try {
 			configured_time = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(CookieManager.matchCookie(cookies, "date_start").getValue()).getTime();
