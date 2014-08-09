@@ -282,8 +282,7 @@ public class TicketSet extends Vector<Ticket> {
 	public Ticket queryOldestAccepted(){
 		Ticket oldest = null;
 		for(Ticket t: this){
-			//TODO npe fixed, review
-			if(t != null && t.getState().compareTo("accepted") == 0 && (oldest == null || (oldest.getAccepted() != null && oldest.getAccepted().getTime() > t.getAccepted().getTime()))){
+			if(t != null && t.getState().compareTo("accepted") == 0 && (oldest == null || oldest.getAccepted().getTime() > t.getAccepted().getTime())){
 				oldest = t;
 			}
 		}
