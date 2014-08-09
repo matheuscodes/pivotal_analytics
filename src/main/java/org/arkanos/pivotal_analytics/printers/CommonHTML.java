@@ -102,6 +102,7 @@ public class CommonHTML {
 
 		output += indent + "  Icon Design by <a href='http://www.dryicons.com/'>DryIcons.com</a> <br>\n";
 
+		output += indent + "  Pivotal Tracker is project management tool from <a href='http://pivotallabs.com/'>Pivotal Labs, Inc.</a><br/>";
 		output += indent + "  Pivotal Analytics is released under <a href='GNUAffero'>GNU Affero GPL</a>\n";
 
 		output += indent + "</div>\n";

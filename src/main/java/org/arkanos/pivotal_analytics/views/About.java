@@ -65,8 +65,10 @@ public class About extends HttpServlet {
 		
 		page.println("     Icon Design by <a href='http://www.dryicons.com/'>DryIcons.com</a> <br>");
 		page.println("     Pivotal Analytics is released under <strong><a href='GNUAffero'>GNU Affero GPL</a></strong> <br>");
-		page.println("     Code is included in the WAR file but Javadoc can be found <strong><a href='doc'>here.</a></strong> <br>");
-		page.println("     For reporting Bugs or contacting the Author, send an email to <strong>matheus.bt</strong> at <strong>gmail.com</strong></p>");
+		
+		page.println("     Pivotal Tracker is project management tool from <a href='http://pivotallabs.com/'>Pivotal Labs, Inc.</a><br/>");
+		page.println("     Code can be found in <a href='https://github.com/matheuscodes/pivotal_analytics'>GitHub</a> but Javadoc can be found <strong><a href='doc'>here.</a></strong> <br>");
+		page.println("     For reporting Bugs either contact the Author via email to <strong>matheus.bt</strong> at <strong>gmail.com</strong> or report directly an <a href='https://github.com/matheuscodes/pivotal_analytics/issues'>issue in GitHub.</a></p>");
 		
 		page.println("    <h3>Purge <img src='icons/download.png' /></h3>");
 		page.println("    <p>This will remove all user data from Pivotal Analytics caches and delete all cookies.</p>");
