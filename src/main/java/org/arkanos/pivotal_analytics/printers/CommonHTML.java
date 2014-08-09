@@ -91,7 +91,7 @@ public class CommonHTML {
 
 		output += indent + "  <table id='copyright' width=100%>\n";
 		output += indent + "    <tr>\n";
-		output += indent + "      <td width=50% align=right>Copyright � 2013</td>\n";
+		output += indent + "      <td width=50% align=right>Copyright &copy; 2013</td>\n";
 		output += indent + "      <td><img src='icons/logo.svg' width=24/></td>\n";
 		output += indent + "      <td width=50%>Matheus Borges Teixeira</td>\n";
 		output += indent + "    </tr>\n";
@@ -113,10 +113,9 @@ public class CommonHTML {
 	 * @return the whole HTML {@code <head>} tag in form of a String.
 	 */
 	public static String getBasicHeaders(String title) {
-		// FIXME encoding issue can be resolved with
-		// "<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1' />";
 		String output = new String();
 		output += "<head>\n";
+		output += "  <meta charset='ISO-8859-1'>\n";
 		output += "  <link rel='stylesheet' type='text/css' href='css/basic.css'>\n";
 		output += "  <link rel='stylesheet' type='text/css' href='css/pivotal.css'>\n";
 		output += "  <link rel='icon' type='image/png' href='icons/logo_small.png'>\n";
