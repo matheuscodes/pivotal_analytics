@@ -96,7 +96,11 @@ public class Ticket {
 			else{
 				this.acceptedAt = null;
 			}
-			this.labels = ((JSONArray)jo.get("labels")).toString();
+			
+			this.labels = "";
+			for(Object l: ((JSONArray)jo.get("labels")).toArray()){
+				this.labels += ((JSONObject)l).get("name")+",";
+			}
 		}
 		catch (MalformedURLException e){
 			System.out.println("Malformed URL. "+(String)jo.get("url"));
