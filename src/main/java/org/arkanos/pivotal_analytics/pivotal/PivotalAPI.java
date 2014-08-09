@@ -98,7 +98,7 @@ public class PivotalAPI {
             	System.out.println("Response content length: " + entity.getContentLength());
             	String result = "";
                 int r = 0;
-                byte[] b = new byte[4096];
+                byte[] b = new byte[10240];
                 do{
                 	
                 	r = entity.getContent().read(b);
@@ -213,7 +213,7 @@ public class PivotalAPI {
                 System.out.println("Response content length: " + entity.getContentLength());
                 result = "";
                 int r = 0;
-                byte[] b = new byte[2048];
+                byte[] b = new byte[4096];
                 do{
                 	r = entity.getContent().read(b);
                 	if(r > 0){

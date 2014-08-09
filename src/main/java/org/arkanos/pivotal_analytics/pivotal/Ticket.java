@@ -219,5 +219,16 @@ public class Ticket {
 	public String toString(){
 		return this.ID + " - "+ this.title;
 	}
+
+	public void addMissingIterationLabel(int i) {
+		if(this.StoryType.compareTo("feature") == 0){
+			if(this.labels != null && !this.labels.contains("["+i+"]")){
+				this.labels += ",["+i+"]";
+			}
+			else{
+				this.labels = "["+i+"]"; 
+			}
+		}
+	}
 	
 }
