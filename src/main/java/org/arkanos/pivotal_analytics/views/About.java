@@ -91,8 +91,6 @@ public class About extends HttpServlet {
 		page.println("        Note that it must be lower or equal than the Project current iteration, in case of wrong input the fallback is 1.</li>");
 		page.println("      <li><strong>Date for Reference: </strong>Specifies a date where the graphs will start plotting data. <br />");
 		page.println("        If the wrong format is specified, the fallback date is the oldest available in the project.</li>");
-		page.println("      <li><strong>Pivotal API Offset:</strong> Specifies how many of the oldest accepted stories must be skipped.<br />");
-		page.println("        This is to be used for big projects due to the Pivotal API Vesion 3 limitation on a max download of 3000 stories.</li>");
 		page.println("    </ul>");
 		
 		page.println("    <h3>Info and About <img src='icons/info.png' /></h3>");

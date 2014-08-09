@@ -45,22 +45,17 @@ public class DataSource {
 	 * If it is not stored, the newest snapshot of the project will be loaded.
 	 * Unless the project is {@linkplain #flushProject(int, String) flushed}, the snapshot won't be updated.
 	 * 
-	 * Another important point is regarding the {@code offset}.
-	 * Unfortunately due to Pivotal API v3, the project cannot load more than 3000 stories.
-	 * For projects with more than that, some of the oldest accepted stories need to be ignored. 
-	 * 
 	 * @param projectID specifies Pivotal ID reference to the Project.
 	 * @param token specifies User API Token from Pivotal.
-	 * @param offset defines the number of stories to be ignored from the oldest accepted.
 	 * @return the last project snapshot requested by the given user.
 	 */
-	static public Project readProject(int projectID, String token, String offset){
+	static public Project readProject(int projectID, String token){
 		if(loaded_projects == null){
 			loaded_projects = new HashMap<String,Project>();
 		}
 		Project selected = loaded_projects.get(projectID+"/"+token);
 		if(selected == null){
-			Project newone = new Project(projectID,token,offset);
+			Project newone = new Project(projectID,token);
 			loaded_projects.put(projectID+"/"+token, newone);
 			return newone;
 		}

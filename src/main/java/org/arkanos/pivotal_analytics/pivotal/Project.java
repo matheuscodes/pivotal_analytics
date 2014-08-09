@@ -68,10 +68,8 @@ public class Project {
 	 * 
 	 * @param projectID specifies Pivotal ID reference to the Project.
 	 * @param token specifies User API Token from Pivotal.
-	 * @param offset defines the number of stories to be ignored from the oldest accepted.
 	 */
-	public Project(int projectID, String token, String offset){
-		//TODO totally remove offset
+	public Project(int projectID, String token){
 		PivotalAPI api = new PivotalAPI(token);
 		String downloaded = api.downloadProject(projectID);
 		JSONParser jp = new JSONParser();
@@ -98,7 +96,7 @@ public class Project {
 				users.addUser((JSONObject)(((JSONObject)pm).get("person")));
 			}
 					
-			loadStories(projectID,token,offset);		
+			loadStories(projectID,token);		
 		} catch (ParseException e) {
 			System.out.println("[ERROR:ParseException] There was an Exception while parsing Pivotal Project Content, see error logs for stack trace.");
 			e.printStackTrace();
@@ -114,9 +112,8 @@ public class Project {
 	 * 
 	 * @param projectID specifies Pivotal ID reference to the Project.
 	 * @param token specifies User API Token from Pivotal.
-	 * @param offset defines the number of stories to be ignored from the oldest accepted.
 	 */
-	private void loadStories(int projectID, String token, String offset){
+	private void loadStories(int projectID, String token){
 		PivotalAPI api = new PivotalAPI(token);
 		Vector<String> downloaded = api.downloadProjectContent(projectID);
 		JSONParser jp = new JSONParser();

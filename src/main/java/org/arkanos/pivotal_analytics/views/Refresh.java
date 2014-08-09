@@ -90,11 +90,6 @@ public class Refresh extends HttpServlet {
 				c.setMaxAge(0);
 				response.addCookie(c);
 			}
-			if(CookieManager.matchCookie(cookies, "offset") != null){
-				c = CookieManager.matchCookie(cookies, "offset");
-				c.setMaxAge(0);
-				response.addCookie(c);
-			}
 			page.println(CommonHTML.getMenu("  "));
 			page.println("  <div class='content' id='text'>");
 			page.println("      <h1>All your data was flushed!</h1>");

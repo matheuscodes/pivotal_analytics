@@ -79,12 +79,9 @@ public class CookieManager {
 			if(cookies[i].getName().compareTo("date_start") == 0){
 				count++;
 			}
-			if(cookies[i].getName().compareTo("offset") == 0){
-				count++;
-			}
 		}		
 		/** Check if all needed Cookies were found **/
-		return count == 6;
+		return count == 5;
 	}
 	
 	/**

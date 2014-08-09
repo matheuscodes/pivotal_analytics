@@ -72,7 +72,7 @@ public class PlanningFollowup extends HttpServlet {
 		int iteration_start = 1;
 		try{
 			int projectID = new Integer(CookieManager.matchCookie(cookies, "project_id").getValue()).intValue();
-			project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue(),CookieManager.matchCookie(cookies, "offset").getValue());
+			project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue());
 			
 			iteration_start = new Integer(CookieManager.matchCookie(cookies, "iteration_start").getValue()).intValue();
 			if(project.getCurrentIteration() - iteration_start > 9){

@@ -42,7 +42,6 @@ import org.arkanos.pivotal_analytics.printers.CommonHTML;
  * - special_labels: comma separated labels for highlight.
  * - iteration_start: which iteration to start counting from.
  * - date_start: what date is important to start observing the project.
- * - offset: number of oldest accepted stories to be ignored. 
  * @version 1.0
  * @author Matheus Borges Teixeira
  */
@@ -111,16 +110,6 @@ public class Config extends HttpServlet {
 		}
 		page.println("      <input id='date_start' name='date_start' type='text' size='100%' /><br>");
 		
-		page.println("      <h3>Pivotal API Offset:</h3>");
-		if(CookieManager.matchCookie(cookies, "offset") != null){
-			page.println("      Current value: "+CookieManager.matchCookie(cookies, "offset").getValue()+"<br>");
-		}
-		else{
-			page.println("      <p class='warning'> Please fill in this information, it is important! </p>");
-		}
-		page.println("      <input id='offset' name='offset' type='text' size='100%' /><br>");
-		
-		
 		page.println("      <input type='submit' name='button' value='Save Configurations' />");
 		page.println("    </form>");
 		page.println("  </div>");
@@ -150,9 +139,6 @@ public class Config extends HttpServlet {
 		}
 		if(request.getParameter("date_start").length()>0){
 			data_to_save.put("date_start", request.getParameter("date_start"));
-		}
-		if(request.getParameter("offset").length()>0){
-			data_to_save.put("offset", request.getParameter("offset"));
 		}
 		for(Cookie c: CookieManager.createCookies(data_to_save)){
 			response.addCookie(c);

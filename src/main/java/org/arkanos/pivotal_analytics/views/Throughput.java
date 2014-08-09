@@ -72,7 +72,7 @@ public class Throughput extends HttpServlet {
 		int projectID = new Integer(CookieManager.matchCookie(cookies, "project_id").getValue()).intValue();
 		
 		/*Queries*/
-		Project project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue(),CookieManager.matchCookie(cookies, "offset").getValue());
+		Project project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue());
 		TicketSet queryAll = project.getStories();
 		TicketSet queryFeatures = queryAll.queryType("feature");
 		TicketSet queryBugs = queryAll.queryType("bug");

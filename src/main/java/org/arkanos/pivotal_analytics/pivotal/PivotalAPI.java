@@ -40,10 +40,6 @@ import org.json.simple.parser.ParseException;
  * This only takes care of handling the downloads.
  * No information is extracted from the contents.
  * 
- * Note: this class makes use of "offset" due to API v3.0 limitation.
- * From the API is only possible to get 3000 stories.
- * If project is bigger than that, this offset needs to be used.
- * 
  * This class is entirely based on static behavior!
  * 
  * @version 1.0

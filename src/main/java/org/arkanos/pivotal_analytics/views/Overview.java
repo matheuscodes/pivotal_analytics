@@ -77,7 +77,7 @@ public class Overview extends HttpServlet {
 		}
 		
 		int projectID = new Integer(CookieManager.matchCookie(cookies, "project_id").getValue()).intValue();
-		Project project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue(),CookieManager.matchCookie(cookies, "offset").getValue());
+		Project project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue());
 		TicketSet non_resolved = project.getStories().queryActive();
 		
 		 
