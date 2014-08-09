@@ -32,7 +32,10 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -75,11 +78,11 @@ public class PivotalAPI {
 		Vector<String> pages = new Vector<String>();
 		int max = 1;
 		int current = 0;
-		int page = 500;
+		int page = 100000;
 		CloseableHttpClient httpclient = HttpClientBuilder.create().build();
 		System.out.println("----------------------------------------");
         try {
-        	HttpGet httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/stories?limit=100000");
+        	HttpGet httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/iterations?limit=100000");
             httpget.addHeader("X-TrackerToken", token);
             System.out.println("Executing request for Project Content:\n" + httpget.getRequestLine());
             HttpResponse response = httpclient.execute(httpget);
@@ -95,7 +98,7 @@ public class PivotalAPI {
             	System.out.println("Response content length: " + entity.getContentLength());
             	String result = "";
                 int r = 0;
-                byte[] b = new byte[2048];
+                byte[] b = new byte[4096];
                 do{
                 	
                 	r = entity.getContent().read(b);
@@ -111,7 +114,7 @@ public class PivotalAPI {
                 if(current < max){
                 	httpclient.close();
                 	httpclient = HttpClientBuilder.create().build();
-	                httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/stories?limit="+page+"&offset="+current);
+	                httpget = new HttpGet(API_LOCATION_URL + "/projects/" + projectID + "/iterations?limit="+page+"&offset="+current);
 	                httpget.addHeader("X-TrackerToken", token);
 	                System.out.println("Executing request for Project Content:\n" + httpget.getRequestLine());
 	                response = httpclient.execute(httpget);
@@ -129,7 +132,23 @@ public class PivotalAPI {
 			e.printStackTrace();
 		}
         System.out.println("----------------------------------------");
-        return pages;	
+        
+        JSONParser jp = new JSONParser();
+        Vector<String> iterations = new Vector<String>();
+        try {
+	        for(String p: pages){
+				JSONArray ja = (JSONArray)jp.parse(p);
+				for(Object i: ja.toArray()){
+					JSONArray stories = (JSONArray)((JSONObject)i).get("stories");
+					iterations.add(stories.toJSONString());
+				}
+	        }
+        } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        return iterations;
 	}
 		
 	/**
@@ -156,7 +175,7 @@ public class PivotalAPI {
                 System.out.println("Response content length: " + entity.getContentLength());
                 result = "";
                 int r = 0;
-                byte[] b = new byte[2048];
+                byte[] b = new byte[4096];
                 do{
                 	r = entity.getContent().read(b);
                 	if(r > 0){
@@ -214,4 +233,6 @@ public class PivotalAPI {
         System.out.println("----------------------------------------");
         return result;
 	}
+	
+	//TODO single point of reference for download full/paged
 }

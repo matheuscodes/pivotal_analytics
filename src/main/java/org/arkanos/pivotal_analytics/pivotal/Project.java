@@ -22,6 +22,7 @@ package org.arkanos.pivotal_analytics.pivotal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Vector;
 
 import org.json.simple.JSONArray;
@@ -62,6 +63,9 @@ public class Project {
 	//TODO doc
 	UserLookup users;
 	
+	//TODO doc
+	HashMap<String,Long> iteration_map;
+	
 	/**
 	 * Downloads and constructs a given project.
 	 * 
@@ -95,7 +99,7 @@ public class Project {
 			for(Object pm: ja.toArray()){
 				users.addUser((JSONObject)(((JSONObject)pm).get("person")));
 			}
-			
+					
 			loadStories(projectID,token,offset);		
 		} catch (ParseException e) {
 			System.out.println("[ERROR:ParseException] There was an Exception while parsing Pivotal Project Content, see error logs for stack trace.");
