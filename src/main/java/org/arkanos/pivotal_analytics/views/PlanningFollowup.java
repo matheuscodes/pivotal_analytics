@@ -105,7 +105,7 @@ public class PlanningFollowup extends HttpServlet {
 		}
 		page.println("<a href='PlanningFollowup?iteration="+project.getCurrentIteration()+"'>"+project.getCurrentIteration()+"</a> ");
 		page.println("    </p>");
-		//TODO remove idents
+		//TODO Remove indentations from strings, as it is useless.
 		int iteration = project.getCurrentIteration();
 		if(request.getParameter("iteration") != null && request.getParameter("iteration").length()>0){
 			iteration = new Integer(request.getParameter("iteration")).intValue();
