@@ -71,6 +71,9 @@ public class CommonHTML {
 		output += "<img src='icons/tools.png' /></a>\n";
 
 		output += indent + "  <a class='button' href='Refresh'>";
+		output += "<img src='icons/refresh.png' /></a>\n";
+		
+		output += indent + "  <a class='button' href='Refresh?purge=true'>";
 		output += "<img src='icons/download.png' /></a>\n";
 
 		output += indent + "</div>\n";
