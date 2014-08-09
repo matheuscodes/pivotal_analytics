@@ -12,7 +12,6 @@ public class UserLookup {
 	}
 	
 	public void addUser(JSONObject jo){
-		System.out.println(jo.get("id").toString());
 		users.put(jo.get("id").toString(),(String)jo.get("name"));
 	}
 	
