@@ -94,7 +94,7 @@ public class CommonHTML {
 
 		output += indent + "  <table id='copyright' width=100%>\n";
 		output += indent + "    <tr>\n";
-		output += indent + "      <td width=50% align=right>Copyright &copy; 2013</td>\n";
+		output += indent + "      <td width=50% align=right>Copyright &copy; 2014</td>\n";
 		output += indent + "      <td><img src='icons/logo.svg' width=24/></td>\n";
 		output += indent + "      <td width=50%>Matheus Borges Teixeira</td>\n";
 		output += indent + "    </tr>\n";

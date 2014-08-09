@@ -1,5 +1,5 @@
 /**
- *  Copyright (C) 2013 Matheus Borges Teixeira
+ *  Copyright (C) 2014 Matheus Borges Teixeira
  *  
  *  This file is part of Pivotal Analytics, a web tool for statistical
  *  observation and measurement of Pivotal Projects.
@@ -36,7 +36,7 @@ import org.arkanos.pivotal_analytics.printers.CommonHTML;
  * @version 1.0
  * @author Matheus Borges Teixeira
  */
-@WebServlet({"/About","/Home","/index.htm","/index.html"})
+@WebServlet({"/About","/Home","/index.htm","/index.html","/main"})
 public class About extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
