@@ -79,11 +79,11 @@ public class Developers extends HttpServlet {
 		
 		int projectID = new Integer(CookieManager.matchCookie(cookies, "project_id").getValue()).intValue();
 		
-		Project thisone = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue(),CookieManager.matchCookie(cookies, "offset").getValue());
-		TicketSet active = thisone.getStories().queryActive();
+		Project project = DataSource.readProject(projectID,CookieManager.matchCookie(cookies, "token").getValue(),CookieManager.matchCookie(cookies, "offset").getValue());
+		TicketSet active = project.getStories().queryActive();
 		
 		page.println("<html>");
-		page.println(CommonHTML.getBasicHeaders("Pivotal Analytics - "+thisone.getDisplayName()+" - Developers"));
+		page.println(CommonHTML.getBasicHeaders("Pivotal Analytics - "+project.getDisplayName()+" - Developers"));
 		page.println("<body>");
 		page.println(CommonHTML.getMenu("  "));
 		
@@ -101,7 +101,7 @@ public class Developers extends HttpServlet {
 					
 			page.println("    </center>");
 			
-			printDeveloper(request.getParameter("dev"),page,active,cookies,thisone);
+			printDeveloper(request.getParameter("dev"),page,active,cookies,project);
 		}
 		else{
 			/** There is no developer selected, so print the task load **/
@@ -109,7 +109,7 @@ public class Developers extends HttpServlet {
 			page.println("    <h1>Developers Overview</h1>");
 			
 			for(String s: active.queryUniqueOwners()){
-				TicketSet currentdev = thisone.getStories().queryOwner(s);
+				TicketSet currentdev = project.getStories().queryOwner(s);
 				long now = System.currentTimeMillis();
 				long start = now;
 				/** Count start from oldest completed task **/
@@ -138,7 +138,7 @@ public class Developers extends HttpServlet {
 				}
 				
 				int oneday = (1000*60*60*24);
-				int size = (int) (thisone.getIterationSize()/oneday);
+				int size = (int) (project.getIterationSize()/oneday);
 				int days = (int)((now - start)/oneday);
 				
 				/** The load is calculated using two informations
@@ -183,9 +183,9 @@ public class Developers extends HttpServlet {
 	 * @param page defines the reference where the page is to be printed.
 	 * @param active defines all active stories.
 	 * @param cookies provides the configuration cookies.
-	 * @param thisone specifies the project which is currently active.
+	 * @param p specifies the project which is currently active.
 	 */
-	private void printDeveloper(String s, PrintWriter page, TicketSet active, Cookie[] cookies, Project thisone){
+	private void printDeveloper(String s, PrintWriter page, TicketSet active, Cookie[] cookies, Project p){
 		String content = new String();
 		TicketSet currentdev = active.queryOwner(s);
 		/** Starting status box**/
@@ -233,13 +233,12 @@ public class Developers extends HttpServlet {
 		/** Single control of the start in the overview **/
 		long configured_time = 0;
 		long start = 0;
-		//TODO Replace all "thisone" to project.
-		if(thisone.getStories().queryOldestAccepted() != null){
-			start = thisone.getStories().queryOldestAccepted().getCreated().getTime();
+		if(p.getStories().queryOldestAccepted() != null){
+			start = p.getStories().queryOldestAccepted().getCreated().getTime();
 		}
 		else{
-			if(thisone.getStories().queryOldestActive() != null){
-				start = thisone.getStories().queryOldestActive().getCreated().getTime();
+			if(p.getStories().queryOldestActive() != null){
+				start = p.getStories().queryOldestActive().getCreated().getTime();
 			}
 		}
 		
@@ -269,17 +268,17 @@ public class Developers extends HttpServlet {
 			Date current = new Date(i);
 			Date next = new Date(i+oneweek);
 			
-			all[count] = thisone.getStories().queryOwner(s).queryAcceptedBetween(current,next).size();
-			bugs[count] = thisone.getStories().queryOwner(s).queryType("bug").queryAcceptedBetween(current,next).size();
-			chores[count] = thisone.getStories().queryOwner(s).queryType("chore").queryAcceptedBetween(current,next).size();
-			features[count] = thisone.getStories().queryOwner(s).queryType("feature").queryAcceptedBetween(current,next).size();
+			all[count] = p.getStories().queryOwner(s).queryAcceptedBetween(current,next).size();
+			bugs[count] = p.getStories().queryOwner(s).queryType("bug").queryAcceptedBetween(current,next).size();
+			chores[count] = p.getStories().queryOwner(s).queryType("chore").queryAcceptedBetween(current,next).size();
+			features[count] = p.getStories().queryOwner(s).queryType("feature").queryAcceptedBetween(current,next).size();
 			
-			if(thisone.getStories().queryAcceptedBetween(current,next).size() > max ){
-				max = thisone.getStories().queryAcceptedBetween(current,next).size();
+			if(p.getStories().queryAcceptedBetween(current,next).size() > max ){
+				max = p.getStories().queryAcceptedBetween(current,next).size();
 			}
 			
 			int points = 0;
-			for(Ticket t: thisone.getStories().queryOwner(s).queryType("feature").queryAcceptedBetween(current,next)){
+			for(Ticket t: p.getStories().queryOwner(s).queryType("feature").queryAcceptedBetween(current,next)){
 				points += t.getPoints();
 			}
 			story_points[count] = points;

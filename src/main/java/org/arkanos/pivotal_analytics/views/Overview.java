@@ -225,7 +225,7 @@ public class Overview extends HttpServlet {
 		
 		page.println(CommonHTML.wrapWindow("overview","Backlog Daily Activity", SVGPrinter.labeledLineGraph(data, closed[0], open[open.length-1], labels, "        ",2),"    "));
 		
-		//TODO Optimize so more iterations can be plotted.
+		//TODO Optimize performance so more iterations can be plotted.
 		int iteration_start = project.getCurrentIteration()- 8;
 		try{
 			iteration_start = new Integer(CookieManager.matchCookie(cookies, "iteration_start").getValue()).intValue();

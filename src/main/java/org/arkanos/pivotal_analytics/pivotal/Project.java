@@ -134,7 +134,7 @@ public class Project {
 				iteration++;
 			}
 		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
+			System.out.println("[ERROR:json.ParseException] Error while parsing JSON information for the project.");
 			e.printStackTrace();
 		}
 	}

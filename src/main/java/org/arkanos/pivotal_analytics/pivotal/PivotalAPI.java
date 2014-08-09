@@ -140,7 +140,7 @@ public class PivotalAPI {
 				}
 	        }
         } catch (ParseException e) {
-			// TODO Auto-generated catch block
+        	System.out.println("[ERROR:ParseException] There was a problem parsing the iterations.");
 			e.printStackTrace();
 		}
         
@@ -235,5 +235,5 @@ public class PivotalAPI {
         return result;
 	}
 	
-	//TODO single point of reference for download full/paged
+	//TODO Refactor to have a single point of reference for the download.
 }
