@@ -266,7 +266,6 @@ public class TicketSet extends Vector<Ticket> {
 	public Ticket queryOldestActive(){
 		TicketSet result = this.queryActive();
 		Ticket oldest = null;
-		System.out.println(result.size());
 		for(Ticket t: result){
 			if(oldest == null || oldest.getCreated().getTime() > t.getCreated().getTime()){
 				oldest = t;
