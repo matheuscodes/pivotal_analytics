@@ -29,7 +29,7 @@ import java.util.Map;
  * This class is entirely based on static behavior!
  * 
  * @version 1.0
- * @see http://www.w3.org/TR/2011/REC-SVG11-20110816/
+ * @see <a href="http://www.w3.org/TR/2011/REC-SVG11-20110816/">http://www.w3.org/TR/2011/REC-SVG11-20110816/</a>
  * @author Matheus Borges Teixeira
  */
 public class SVGPrinter {
