@@ -84,6 +84,11 @@ public class PlanningFollowup extends HttpServlet {
 			System.out.println("[WARNING] Parsing exception on iteration. Using default 1.");
 		}
 		
+		if(project == null) {
+			response.sendError(500,"Project could not be loaded!");
+			return;
+		}
+		
 		page.println("<html>");
 		page.println(CommonHTML.getBasicHeaders("Pivotal Analytics - "+project.getDisplayName()+" - Planning Follow Up"));
 		page.println("<body>");
