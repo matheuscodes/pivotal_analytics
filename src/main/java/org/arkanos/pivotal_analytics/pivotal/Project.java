@@ -76,8 +76,12 @@ public class Project {
 		try {
 			JSONObject jo = (JSONObject) jp.parse(downloaded);
 			String date_start = (String)jo.get("start_date");
-			
-			iterations_start = new SimpleDateFormat("yyyy-MM-dd").parse(date_start);
+			if(date_start == null){
+				iterations_start = new SimpleDateFormat("yyyy-MM-dd").parse("2013-01-01");
+			}
+			else{
+				iterations_start = new SimpleDateFormat("yyyy-MM-dd").parse(date_start);
+			}
 			 
 			current_iteration = ((Long)jo.get("current_iteration_number")).intValue();
 			
