@@ -16,12 +16,12 @@ _Pivotal Tracker_ is a project management tool from _[Pivotal Labs, Inc.](http:/
 
 _Icon design by http://www.dryicons.com/_
 
-#Tool Overview
+# Tool Overview
 
-##Overview
+## Overview
 Displays statistics at project level, compiling a dashboard.
 
-####Graphs
+#### Graphs
 - **Team Velocity for Features:** plots the variation of the team's weekly velocity for features.
   For the calculation of a given week, the two previous weeks are taken into consideration, independently of iteration size.
   Note that this   only counts the features <strong>accepted</strong> during the course of the week and its storypoints.
@@ -33,7 +33,7 @@ Displays statistics at project level, compiling a dashboard.
 
 <img src="https://raw.githubusercontent.com/matheuscodes/pivotal_analytics/master/src/main/webapp/imgs/overview.png"/>
 
-####Status
+#### Status
 - **Pie Charts:** displays the distribution of the open stories in three categories.
   - Status (Backlog,  Started or Icebox);
   - Story Type (Bug, Feature, Chore or Release);
@@ -42,7 +42,7 @@ Displays statistics at project level, compiling a dashboard.
 
 <img src="https://raw.githubusercontent.com/matheuscodes/pivotal_analytics/master/src/main/webapp/imgs/overview_status.png"/>
 
-##Starvation
+## Starvation
 
 Displays an overview of the waiting time in open stories.
 
@@ -115,7 +115,7 @@ Three further lists will be given:
 
 Displays a list with all downloaded stories in the project.
 
-##Operation Instructions
+## Operation Instructions
 
 ### Purge <img src="https://raw.githubusercontent.com/matheuscodes/pivotal_analytics/master/src/main/webapp/icons/download.png">
 This will remove all user data from Pivotal Analytics caches and delete all cookies.</p>
