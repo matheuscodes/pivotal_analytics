@@ -8,7 +8,7 @@
 	<name>Pivotal Analytics</name>
 	<url>https://pivotal_analytics.cloudcontrolled.com</url>
 	<properties>
-		<jettyVersion>9.4.35.v20201120</jettyVersion>
+		<jettyVersion>9.4.56.v20240826</jettyVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
  
