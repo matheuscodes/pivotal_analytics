@@ -133,7 +133,7 @@ public class MockPivotalAPI extends HttpServlet {
         "Improve build pipeline",
         "Add health check endpoint",
         "Update README documentation",
-        "Optimise database queries"
+        "Optimize database queries"
     };
 
     /** Labels used on features **/
