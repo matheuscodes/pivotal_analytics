@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Extract version from pom.xml
+        id: version
+        run: echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+
+      - name: Build with Maven
+        run: mvn package -DskipTests
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          body: |
+            ## Pivotal Analytics v${{ steps.version.outputs.version }}
+
+            A statistical analytics dashboard that works out of the box with built-in mock data — no Pivotal Tracker account required.
+
+            ### Running the application
+
+            Download both `pivotal_analytics.war` and `jetty-runner.jar` from the assets below, then run:
+
+            ```bash
+            java -jar jetty-runner.jar --port 8080 pivotal_analytics.war
+            ```
+
+            Open http://localhost:8080 in your browser, go to **Config**, enter any token and project ID (e.g. `demo` and `99999`), and click **Save Configurations**.
+
+            ### What you will see
+
+            The application serves pre-generated data for a fictional 52-sprint project spanning two years, including:
+            - Team velocity and story-point charts
+            - Request response time graphs
+            - Backlog daily activity
+            - Planning burn-down per iteration
+            - Developer workload breakdown
+            - Full story list with filtering
+          files: |
+            target/pivotal_analytics.war
+            target/dependency/jetty-runner.jar
+          make_latest: true
