@@ -50,26 +50,23 @@ public class MockPivotalAPI extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    /** Number of simulated iterations (2-week sprints from 2022-01-03) **/
+    /** Number of simulated iterations (2-week sprints going back ~2 years) **/
     private static final int ITERATION_COUNT = 52;
 
     /** Iteration length in days **/
     private static final int ITERATION_DAYS = 14;
 
-    /** Project start date **/
-    private static final String PROJECT_START = "2022-01-03";
-
     /** Milliseconds per day **/
     private static final long DAY_MS = 24L * 60 * 60 * 1000;
 
-    /** Project start as epoch ms (2022-01-03) **/
-    private static final long PROJECT_START_MS = 1641168000000L;
-
     private static final SimpleDateFormat ISO_FMT;
+    private static final SimpleDateFormat DATE_FMT;
 
     static {
         ISO_FMT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         ISO_FMT.setTimeZone(TimeZone.getTimeZone("UTC"));
+        DATE_FMT = new SimpleDateFormat("yyyy-MM-dd");
+        DATE_FMT.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     /** Mock team members **/
@@ -155,26 +152,32 @@ public class MockPivotalAPI extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
+        long startMs = System.currentTimeMillis() - (long) ITERATION_COUNT * ITERATION_DAYS * DAY_MS;
+
         if (pathInfo.endsWith("/iterations")) {
-            handleIterations(response, out);
+            handleIterations(response, out, startMs);
         } else if (pathInfo.endsWith("/memberships")) {
             handleMemberships(out);
         } else if (pathInfo.endsWith("/stories")) {
-            handleStories(out);
+            handleStories(out, startMs);
         } else {
-            handleProject(out);
+            handleProject(out, startMs);
         }
     }
 
     /**
      * Returns mock project metadata.
      */
-    private void handleProject(PrintWriter out) {
+    private void handleProject(PrintWriter out, long startMs) {
+        String projectStart;
+        synchronized (DATE_FMT) {
+            projectStart = DATE_FMT.format(new Date(startMs));
+        }
         out.print("{");
         out.print("\"id\":99999,");
         out.print("\"name\":\"Demo Analytics Project\",");
         out.print("\"account_id\":100001,");
-        out.print("\"start_date\":\"" + PROJECT_START + "\",");
+        out.print("\"start_date\":\"" + projectStart + "\",");
         out.print("\"current_iteration_number\":" + ITERATION_COUNT + ",");
         out.print("\"iteration_length\":2");
         out.print("}");
@@ -200,7 +203,7 @@ public class MockPivotalAPI extends HttpServlet {
      * Returns mock iterations with stories.
      * Pagination headers are set so the client knows it received everything.
      */
-    private void handleIterations(HttpServletResponse response, PrintWriter out) {
+    private void handleIterations(HttpServletResponse response, PrintWriter out, long startMs) {
         response.setHeader("X-Tracker-Pagination-Total", String.valueOf(ITERATION_COUNT));
         response.setHeader("X-Tracker-Pagination-Limit", "100000");
 
@@ -210,7 +213,7 @@ public class MockPivotalAPI extends HttpServlet {
             out.print("{");
             out.print("\"number\":" + iter + ",");
             out.print("\"stories\":");
-            out.print(buildIterationStories(iter));
+            out.print(buildIterationStories(iter, startMs));
             out.print("}");
         }
         out.print("]");
@@ -219,7 +222,7 @@ public class MockPivotalAPI extends HttpServlet {
     /**
      * Returns mock icebox (unscheduled) stories.
      */
-    private void handleStories(PrintWriter out) {
+    private void handleStories(PrintWriter out, long startMs) {
         out.print("[");
         int baseId = 900000;
         for (int i = 0; i < 20; i++) {
@@ -231,7 +234,7 @@ public class MockPivotalAPI extends HttpServlet {
                 : FEATURE_TITLES[i % FEATURE_TITLES.length] + " (backlog)";
             long requesterId = USER_IDS[i % USER_IDS.length];
             long ownerId = USER_IDS[(i + 1) % USER_IDS.length];
-            String createdAt = isoDate(PROJECT_START_MS + (long)(i * 7) * DAY_MS);
+            String createdAt = isoDate(startMs + (long)(i * 7) * DAY_MS);
             int estimate = (type.equals("feature")) ? ESTIMATES[i % ESTIMATES.length] : 0;
 
             out.print("{");
@@ -256,13 +259,14 @@ public class MockPivotalAPI extends HttpServlet {
      * Builds a JSON array of stories for a given iteration.
      *
      * @param iter the iteration number (1-based).
+     * @param startMs the project start time in epoch milliseconds.
      * @return JSON string of the stories array.
      */
-    private String buildIterationStories(int iter) {
+    private String buildIterationStories(int iter, long startMs) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
 
-        long iterStartMs = PROJECT_START_MS + (long)(iter - 1) * ITERATION_DAYS * DAY_MS;
+        long iterStartMs = startMs + (long)(iter - 1) * ITERATION_DAYS * DAY_MS;
         boolean isRecent = iter > ITERATION_COUNT - 4;
         boolean isMid = iter > ITERATION_COUNT - 12 && !isRecent;
 
