@@ -1,5 +1,5 @@
-org.arkanos.pivotal_analytics.io
-org.arkanos.pivotal_analytics.managers
-org.arkanos.pivotal_analytics.pivotal
-org.arkanos.pivotal_analytics.printers
-org.arkanos.pivotal_analytics.views
+software.matheus.pivotal_analytics.io
+software.matheus.pivotal_analytics.managers
+software.matheus.pivotal_analytics.pivotal
+software.matheus.pivotal_analytics.printers
+software.matheus.pivotal_analytics.views
