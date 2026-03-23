@@ -48,6 +48,8 @@ public class CookieManager {
 			Cookie newone = new Cookie(e.getKey(),e.getValue());
 			newone.setVersion(1);
 			newone.setMaxAge(cookieMaxAge);
+			newone.setSecure(true);
+			newone.setHttpOnly(true);
 			
 			results.add(newone);
 		}

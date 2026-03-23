@@ -170,7 +170,7 @@ public class Overview extends HttpServlet {
 			int tickets_time = 0;
 			for(Ticket t: all.queryAcceptedBetween(current, next)){
 				long difference = (t.getAccepted().getTime() - t.getCreated().getTime())/oneday;
-				tickets_time += difference;
+				tickets_time += (int) difference;
 				if(difference > max[k]) max[k] = (int) difference;
 				if(difference < min[k]) min[k] = (int) difference;
 				if(difference > max_points) max_points = (int) difference;

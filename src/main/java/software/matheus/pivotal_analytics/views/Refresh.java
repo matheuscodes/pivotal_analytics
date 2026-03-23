@@ -68,26 +68,36 @@ public class Refresh extends HttpServlet {
 			if(CookieManager.matchCookie(cookies, "token") != null){
 				c = CookieManager.matchCookie(cookies, "token");
 				c.setMaxAge(0);
+				c.setSecure(true);
+				c.setHttpOnly(true);
 				response.addCookie(c);
 			}
 			if(CookieManager.matchCookie(cookies, "project_id") != null){
 				c = CookieManager.matchCookie(cookies, "project_id");
 				c.setMaxAge(0);
+				c.setSecure(true);
+				c.setHttpOnly(true);
 				response.addCookie(c);
 			}
 			if(CookieManager.matchCookie(cookies, "special_labels") != null){
 				c = CookieManager.matchCookie(cookies, "special_labels");
 				c.setMaxAge(0);
+				c.setSecure(true);
+				c.setHttpOnly(true);
 				response.addCookie(c);
 			}
 			if(CookieManager.matchCookie(cookies, "iteration_start") != null){
 				c = CookieManager.matchCookie(cookies, "iteration_start");
 				c.setMaxAge(0);
+				c.setSecure(true);
+				c.setHttpOnly(true);
 				response.addCookie(c);
 			}
 			if(CookieManager.matchCookie(cookies, "date_start") != null){
 				c = CookieManager.matchCookie(cookies, "date_start");
 				c.setMaxAge(0);
+				c.setSecure(true);
+				c.setHttpOnly(true);
 				response.addCookie(c);
 			}
 			page.println(CommonHTML.getMenu("  "));
