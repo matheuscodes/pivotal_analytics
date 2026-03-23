@@ -10,15 +10,6 @@
 	<properties>
 		<jettyVersion>9.4.56.v20240826</jettyVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<sonar.coverage.exclusions>
-			**/views/**,
-			**/mock/**,
-			**/pivotal/PivotalAPI.java,
-			**/pivotal/Project.java,
-			**/AppContextListener.java,
-			**/io/DataSource.java,
-			**/CookieEncodingFilter*.java
-		</sonar.coverage.exclusions>
 	</properties>
  
 	<dependencies>
@@ -110,17 +101,7 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
-							<excludes>
-								<exclude>software/matheus/pivotal_analytics/views/*</exclude>
-								<exclude>software/matheus/pivotal_analytics/mock/*</exclude>
-								<exclude>software/matheus/pivotal_analytics/pivotal/PivotalAPI.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/pivotal/Project.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/AppContextListener.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/io/DataSource.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/CookieEncodingFilter*.class</exclude>
-							</excludes>
-						</configuration>
+						
 					</execution>
 					<execution>
 						<id>check</id>
@@ -129,15 +110,6 @@
 							<goal>check</goal>
 						</goals>
 						<configuration>
-							<excludes>
-								<exclude>software/matheus/pivotal_analytics/views/*</exclude>
-								<exclude>software/matheus/pivotal_analytics/mock/*</exclude>
-								<exclude>software/matheus/pivotal_analytics/pivotal/PivotalAPI.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/pivotal/Project.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/AppContextListener.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/io/DataSource.class</exclude>
-								<exclude>software/matheus/pivotal_analytics/CookieEncodingFilter*.class</exclude>
-							</excludes>
 							<rules>
 								<rule>
 									<element>BUNDLE</element>
