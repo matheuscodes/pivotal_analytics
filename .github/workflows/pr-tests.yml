@@ -36,7 +36,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn sonar:sonar \
-            -Dsonar.projectKey=matheuscodes_bode-plotter \
+            -Dsonar.projectKey=matheuscodes_pivotal_analytics \
             -Dsonar.organization=matheuscodes-analysed \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN} \
