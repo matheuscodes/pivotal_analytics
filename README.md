@@ -1,5 +1,8 @@
 # Pivotal Analytics
 
+> ⚠️ **This repository is now archived.** This tool was built as a support during author's time as product manager having to use Pivotal Tracker. The tool itself has been decomissioned and the author moved on to a different position. With the help of AI some dummy data has been added to make the project executable but no further development will be done.
+
+
 Pivotal Analytics - Tool for extracting statistical data from Pivotal Projects.
 
 Copyright (C) 2014 Matheus Borges Teixeira
